@@ -11,8 +11,6 @@ import * as yup from 'yup';
 
 import type { AdButlerConfig } from '../../../types/client/adButlerConfig';
 import type { AddressProfileAPIConfig } from '../../../types/client/addressProfileAPIConfig';
-import { SUPPORTED_AD_TEXT_PROVIDERS, SUPPORTED_AD_BANNER_PROVIDERS, SUPPORTED_AD_BANNER_ADDITIONAL_PROVIDERS } from '../../../types/client/adProviders';
-import type { AdTextProviders, AdBannerProviders, AdBannerAdditionalProviders } from '../../../types/client/adProviders';
 import { SMART_CONTRACT_EXTRA_VERIFICATION_METHODS, type ContractCodeIde, type SmartContractVerificationMethodExtra } from '../../../types/client/contract';
 import type { DeFiDropdownItem } from '../../../types/client/deFiDropdown';
 import type { GasRefuelProviderConfig } from '../../../types/client/gasRefuelProviderConfig';
@@ -279,40 +277,6 @@ const rollupSchema = yup
         then: (schema) => schema.test(urlTest).required(),
         otherwise: (schema) => schema.max(-1, 'NEXT_PUBLIC_ROLLUP_L2_WITHDRAWAL_URL can be used only if NEXT_PUBLIC_ROLLUP_TYPE is set to \'optimistic\' '),
       }),
-  });
-
-const adButlerConfigSchema = yup
-  .object<AdButlerConfig>()
-  .transform(replaceQuotes)
-  .json()
-  .when('NEXT_PUBLIC_AD_BANNER_PROVIDER', {
-    is: (value: AdBannerProviders) => value === 'adbutler',
-    then: (schema) => schema
-      .shape({
-        id: yup.string().required(),
-        width: yup.number().positive().required(),
-        height: yup.number().positive().required(),
-      })
-      .required(),
-  })
-  .when('NEXT_PUBLIC_AD_BANNER_ADDITIONAL_PROVIDER', {
-    is: (value: AdBannerProviders) => value === 'adbutler',
-    then: (schema) => schema
-      .shape({
-        id: yup.string().required(),
-        width: yup.number().positive().required(),
-        height: yup.number().positive().required(),
-      })
-      .required(),
-  });
-
-const adsBannerSchema = yup
-  .object()
-  .shape({
-    NEXT_PUBLIC_AD_BANNER_PROVIDER: yup.string<AdBannerProviders>().oneOf(SUPPORTED_AD_BANNER_PROVIDERS),
-    NEXT_PUBLIC_AD_BANNER_ADDITIONAL_PROVIDER: yup.string<AdBannerAdditionalProviders>().oneOf(SUPPORTED_AD_BANNER_ADDITIONAL_PROVIDERS),
-    NEXT_PUBLIC_AD_ADBUTLER_CONFIG_DESKTOP: adButlerConfigSchema,
-    NEXT_PUBLIC_AD_ADBUTLER_CONFIG_MOBILE: adButlerConfigSchema,
   });
 
 const sentrySchema = yup
@@ -738,7 +702,6 @@ const schema = yup
       }),
     NEXT_PUBLIC_WEB3_DISABLE_ADD_TOKEN_TO_WALLET: yup.boolean(),
     NEXT_PUBLIC_TRANSACTION_INTERPRETATION_PROVIDER: yup.string().oneOf(TX_INTERPRETATION_PROVIDERS),
-    NEXT_PUBLIC_AD_TEXT_PROVIDER: yup.string<AdTextProviders>().oneOf(SUPPORTED_AD_TEXT_PROVIDERS),
     NEXT_PUBLIC_PROMOTE_BLOCKSCOUT_IN_TITLE: yup.boolean(),
     NEXT_PUBLIC_OG_DESCRIPTION: yup.string(),
     NEXT_PUBLIC_OG_IMAGE_URL: yup.string().test(urlTest),
@@ -830,7 +793,6 @@ const schema = yup
     NEXT_PUBLIC_USE_NEXT_JS_PROXY: yup.boolean(),
   })
   .concat(accountSchema)
-  .concat(adsBannerSchema)
   .concat(marketplaceSchema)
   .concat(rollupSchema)
   .concat(beaconChainSchema)

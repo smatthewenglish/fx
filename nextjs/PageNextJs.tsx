@@ -5,7 +5,6 @@ import type { Route } from 'nextjs-routes';
 import type { Props as PageProps } from 'nextjs/getServerSideProps';
 
 import config from 'configs/app';
-import useAdblockDetect from 'lib/hooks/useAdblockDetect';
 import useGetCsrfToken from 'lib/hooks/useGetCsrfToken';
 import * as metadata from 'lib/metadata';
 import * as mixpanel from 'lib/mixpanel';
@@ -24,7 +23,6 @@ const PageNextJs = <Pathname extends Route['pathname']>(props: Props<Pathname>) 
   const { title, description, opengraph, canonical } = metadata.generate(props, props.apiData);
 
   useGetCsrfToken();
-  useAdblockDetect();
 
   const isMixpanelInited = mixpanel.useInit();
   mixpanel.useLogPageView(isMixpanelInited);

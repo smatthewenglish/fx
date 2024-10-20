@@ -3,7 +3,6 @@ import React from 'react';
 
 import useIsMobile from 'lib/hooks/useIsMobile';
 import { clearRecentSearchKeywords, getRecentSearchKeywords, removeRecentSearchKeyword } from 'lib/recentSearchKeywords';
-import TextAd from 'ui/shared/ad/TextAd';
 import ClearButton from 'ui/shared/ClearButton';
 import HashStringShortenDynamic from 'ui/shared/HashStringShortenDynamic';
 
@@ -43,11 +42,7 @@ const SearchBarSuggest = ({ onClick, onClear }: Props) => {
 
   return (
     <Box py={ 6 }>
-      { !isMobile && (
-        <Box pb={ 4 } mb={ 5 } borderColor="divider" borderBottomWidth="1px" _empty={{ display: 'none' }}>
-          <TextAd/>
-        </Box>
-      ) }
+      { !isMobile }
       <Flex mb={ 3 } justifyContent="space-between" fontSize="sm">
         <Text fontWeight={ 600 } variant="secondary">Recent</Text>
         <Link onClick={ clearKeywords }>Clear all</Link>
