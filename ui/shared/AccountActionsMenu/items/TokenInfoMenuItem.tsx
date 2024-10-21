@@ -7,8 +7,6 @@ import type { ItemProps } from '../types';
 import config from 'configs/app';
 import useApiQuery from 'lib/api/useApiQuery';
 import useHasAccount from 'lib/hooks/useHasAccount';
-import { PAGE_TYPE_DICT } from 'lib/mixpanel/getPageType';
-import AddressVerificationModal from 'ui/addressVerification/AddressVerificationModal';
 import IconSvg from 'ui/shared/IconSvg';
 
 import ButtonItem from '../parts/ButtonItem';
@@ -92,15 +90,6 @@ const TokenInfoMenuItem = ({ className, hash, onBeforeClick, type }: ItemProps) 
   return (
     <>
       { element }
-      <AddressVerificationModal
-        defaultAddress={ hash }
-        pageType={ PAGE_TYPE_DICT['/token/[hash]'] }
-        isOpen={ modal.isOpen }
-        onClose={ modal.onClose }
-        onSubmit={ handleVerifiedAddressSubmit }
-        onAddTokenInfoClick={ handleAddApplicationClick }
-        onShowListClick={ handleShowMyAddressesClick }
-      />
     </>
   );
 };

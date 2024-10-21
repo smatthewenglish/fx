@@ -8,7 +8,6 @@ import * as regexp from 'lib/regexp';
 import { getTokenTypeName } from 'lib/token/tokenTypes';
 import AddressQrCode from 'ui/address/details/AddressQrCode';
 import AccountActionsMenu from 'ui/shared/AccountActionsMenu/AccountActionsMenu';
-import AddressAddToWallet from 'ui/shared/address/AddressAddToWallet';
 import Tag from 'ui/shared/chakra/Tag';
 import TokenEntity from 'ui/shared/entities/token/TokenEntity';
 import LinkExternal from 'ui/shared/links/LinkExternal';
@@ -103,7 +102,6 @@ const TokenInstancePageTitle = ({ isLoading, token, instance, hash }: Props) => 
           maxW="700px"
         />
       ) }
-      { !isLoading && <AddressAddToWallet token={ token } variant="button"/> }
       <AddressQrCode address={ address } isLoading={ isLoading }/>
       <AccountActionsMenu isLoading={ isLoading } showUpdateMetadataItem={ Boolean(instance?.metadata) }/>
       { appLink }

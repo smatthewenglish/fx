@@ -2,9 +2,7 @@ import { Box, Flex, Heading, useColorModeValue } from '@chakra-ui/react';
 import React from 'react';
 
 import config from 'configs/app';
-import ProfileMenuDesktop from 'ui/snippets/profileMenu/ProfileMenuDesktop';
 import SearchBar from 'ui/snippets/searchBar/SearchBar';
-import WalletMenuDesktop from 'ui/snippets/walletMenu/WalletMenuDesktop';
 
 const BACKGROUND_DEFAULT = 'radial-gradient(103.03% 103.03% at 0% 0%, rgba(183, 148, 244, 0.8) 0%, rgba(0, 163, 196, 0.8) 100%), var(--chakra-colors-blue-400)';
 const TEXT_COLOR_DEFAULT = 'white';
@@ -65,12 +63,6 @@ const HeroBanner = () => {
                 `${ config.chain.name } explorer`
             }
           </Heading>
-          { config.UI.navigation.layout === 'vertical' && (
-            <Box display={{ base: 'none', lg: 'flex' }}>
-              { config.features.account.isEnabled && <ProfileMenuDesktop isHomePage/> }
-              { config.features.blockchainInteraction.isEnabled && <WalletMenuDesktop isHomePage/> }
-            </Box>
-          ) }
         </Flex>
         <SearchBar isHomepage/>
       </Box>

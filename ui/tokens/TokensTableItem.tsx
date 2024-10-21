@@ -6,7 +6,6 @@ import type { TokenInfo } from 'types/api/token';
 
 import config from 'configs/app';
 import { getTokenTypeName } from 'lib/token/tokenTypes';
-import AddressAddToWallet from 'ui/shared/address/AddressAddToWallet';
 import Tag from 'ui/shared/chakra/Tag';
 import type { EntityProps as AddressEntityProps } from 'ui/shared/entities/address/AddressEntity';
 import AddressEntity from 'ui/shared/entities/address/AddressEntity';
@@ -84,13 +83,6 @@ const TokensTableItem = ({
                 noIcon
                 fontSize="sm"
                 fontWeight={ 500 }
-              />
-              <AddressAddToWallet
-                token={ token }
-                isLoading={ isLoading }
-                iconSize={ 5 }
-                opacity={ 0 }
-                _groupHover={{ opacity: 1 }}
               />
             </Flex>
             <Flex columnGap={ 1 }>

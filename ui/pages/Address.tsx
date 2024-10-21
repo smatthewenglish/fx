@@ -40,7 +40,6 @@ import SolidityscanReport from 'ui/address/SolidityscanReport';
 import useAddressQuery from 'ui/address/utils/useAddressQuery';
 import useCheckDomainNameParam from 'ui/address/utils/useCheckDomainNameParam';
 import AccountActionsMenu from 'ui/shared/AccountActionsMenu/AccountActionsMenu';
-import AddressAddToWallet from 'ui/shared/address/AddressAddToWallet';
 import AddressEntity from 'ui/shared/entities/address/AddressEntity';
 import EnsEntity from 'ui/shared/entities/ens/EnsEntity';
 import EntityTags from 'ui/shared/EntityTags/EntityTags';
@@ -343,8 +342,6 @@ const AddressPageContent = () => {
         icon={{ color: isSafeAddress ? safeIconColor : undefined }}
         mr={ 4 }
       />
-      { !isLoading && addressQuery.data?.is_contract && addressQuery.data.token &&
-        <AddressAddToWallet token={ addressQuery.data.token } variant="button"/> }
       { !isLoading && !addressQuery.data?.is_contract && config.features.account.isEnabled && (
         <AddressFavoriteButton hash={ hash } watchListId={ addressQuery.data?.watchlist_address_id }/>
       ) }

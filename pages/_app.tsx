@@ -22,7 +22,6 @@ import AppErrorBoundary from 'ui/shared/AppError/AppErrorBoundary';
 import AppErrorGlobalContainer from 'ui/shared/AppError/AppErrorGlobalContainer';
 import GoogleAnalytics from 'ui/shared/GoogleAnalytics';
 import Layout from 'ui/shared/layout/Layout';
-import Web3ModalProvider from 'ui/shared/Web3ModalProvider';
 
 import 'lib/setLocale';
 // import 'focus-visible/dist/focus-visible';
@@ -63,23 +62,21 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
         onError={ handleError }
         Container={ AppErrorGlobalContainer }
       >
-        <Web3ModalProvider>
-          <AppContextProvider pageProps={ pageProps }>
-            <QueryClientProvider client={ queryClient }>
-              <GrowthBookProvider growthbook={ growthBook }>
-                <ScrollDirectionProvider>
-                  <SocketProvider url={ `${ config.api.socket }${ config.api.basePath }/socket/v2` }>
-                    <MarketplaceContextProvider>
-                      { getLayout(<Component { ...pageProps }/>) }
-                    </MarketplaceContextProvider>
-                  </SocketProvider>
-                </ScrollDirectionProvider>
-              </GrowthBookProvider>
-              <ReactQueryDevtools buttonPosition="bottom-left" position="left"/>
-              <GoogleAnalytics/>
-            </QueryClientProvider>
-          </AppContextProvider>
-        </Web3ModalProvider>
+        <AppContextProvider pageProps={ pageProps }>
+          <QueryClientProvider client={ queryClient }>
+            <GrowthBookProvider growthbook={ growthBook }>
+              <ScrollDirectionProvider>
+                <SocketProvider url={ `${ config.api.socket }${ config.api.basePath }/socket/v2` }>
+                  <MarketplaceContextProvider>
+                    { getLayout(<Component { ...pageProps }/>) }
+                  </MarketplaceContextProvider>
+                </SocketProvider>
+              </ScrollDirectionProvider>
+            </GrowthBookProvider>
+            <ReactQueryDevtools buttonPosition="bottom-left" position="left"/>
+            <GoogleAnalytics/>
+          </QueryClientProvider>
+        </AppContextProvider>
       </AppErrorBoundary>
     </ChakraProvider>
   );

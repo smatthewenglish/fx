@@ -9,9 +9,6 @@ import getQueryParamString from 'lib/router/getQueryParamString';
 import useSocketChannel from 'lib/socket/useSocketChannel';
 import * as stubs from 'stubs/contract';
 import ContractCode from 'ui/address/contract/ContractCode';
-import ContractMethodsCustom from 'ui/address/contract/methods/ContractMethodsCustom';
-import ContractMethodsProxy from 'ui/address/contract/methods/ContractMethodsProxy';
-import ContractMethodsRegular from 'ui/address/contract/methods/ContractMethodsRegular';
 import { divideAbiIntoMethodTypes } from 'ui/address/contract/methods/utils';
 
 const CONTRACT_TAB_IDS = [
@@ -97,45 +94,20 @@ export default function useContractTabs(data: Address | undefined, isPlaceholder
         methods.read.length > 0 && {
           id: 'read_contract' as const,
           title: 'Read contract',
-          component: <ContractMethodsRegular type="read" abi={ methods.read } isLoading={ contractQuery.isPlaceholderData }/>,
+          component: <ContractCode contractQuery={ contractQuery } channel={ channel } addressHash={ data?.hash }/>,
         },
         methodsCustomAbi.read.length > 0 && {
           id: 'read_custom_methods' as const,
           title: 'Read custom',
-          component: <ContractMethodsCustom type="read" abi={ methodsCustomAbi.read } isLoading={ contractQuery.isPlaceholderData }/>,
+          component: <ContractCode contractQuery={ contractQuery } channel={ channel } addressHash={ data?.hash }/>,
         },
         verifiedImplementations.length > 0 && {
           id: 'read_proxy' as const,
           title: 'Read proxy',
           component: (
-            <ContractMethodsProxy
-              type="read"
-              implementations={ verifiedImplementations }
-              isLoading={ contractQuery.isPlaceholderData }
-            />
+            <ContractCode contractQuery={ contractQuery } channel={ channel } addressHash={ data?.hash }/>
           ),
-        },
-        methods.write.length > 0 && {
-          id: 'write_contract' as const,
-          title: 'Write contract',
-          component: <ContractMethodsRegular type="write" abi={ methods.write } isLoading={ contractQuery.isPlaceholderData }/>,
-        },
-        methodsCustomAbi.write.length > 0 && {
-          id: 'write_custom_methods' as const,
-          title: 'Write custom',
-          component: <ContractMethodsCustom type="write" abi={ methodsCustomAbi.write } isLoading={ contractQuery.isPlaceholderData }/>,
-        },
-        verifiedImplementations.length > 0 && {
-          id: 'write_proxy' as const,
-          title: 'Write proxy',
-          component: (
-            <ContractMethodsProxy
-              type="write"
-              implementations={ verifiedImplementations }
-              isLoading={ contractQuery.isPlaceholderData }
-            />
-          ),
-        },
+        }, 
       ].filter(Boolean),
       isLoading: contractQuery.isPlaceholderData,
     };

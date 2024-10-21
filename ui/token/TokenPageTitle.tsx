@@ -14,7 +14,6 @@ import { useAppContext } from 'lib/contexts/app';
 import { getTokenTypeName } from 'lib/token/tokenTypes';
 import AddressQrCode from 'ui/address/details/AddressQrCode';
 import AccountActionsMenu from 'ui/shared/AccountActionsMenu/AccountActionsMenu';
-import AddressAddToWallet from 'ui/shared/address/AddressAddToWallet';
 import AddressEntity from 'ui/shared/entities/address/AddressEntity';
 import * as TokenEntity from 'ui/shared/entities/token/TokenEntity';
 import EntityTags from 'ui/shared/EntityTags/EntityTags';
@@ -122,7 +121,6 @@ const TokenPageTitle = ({ tokenQuery, addressQuery, hash }: Props) => {
           fontWeight={ 500 }
         />
       ) }
-      { !isLoading && tokenQuery.data && <AddressAddToWallet token={ tokenQuery.data } variant="button"/> }
       <AddressQrCode address={ addressQuery.data } isLoading={ isLoading }/>
       <AccountActionsMenu isLoading={ isLoading }/>
       <Flex ml={{ base: 0, lg: 'auto' }} columnGap={ 2 } flexGrow={{ base: 1, lg: 0 }}>

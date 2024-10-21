@@ -2,7 +2,6 @@
 import { test as base } from '@playwright/experimental-ct-react';
 import type { Page } from '@playwright/test';
 
-import * as injectMetaMaskProvider from './fixtures/injectMetaMaskProvider';
 import * as mockApiResponse from './fixtures/mockApiResponse';
 import * as mockAssetResponse from './fixtures/mockAssetResponse';
 import * as mockConfigResponse from './fixtures/mockConfigResponse';
@@ -24,7 +23,6 @@ export interface Fixtures {
   mockFeatures: mockFeatures.MockFeaturesFixture;
   mockRpcResponse: mockRpcResponse.MockRpcResponseFixture;
   createSocket: socketServer.CreateSocketFixture;
-  injectMetaMaskProvider: injectMetaMaskProvider.InjectMetaMaskProvider;
   mockTextAd: mockTextAd.MockTextAdFixture;
 }
 
@@ -44,7 +42,6 @@ const test = base.extend<Fixtures>({
   // so we have to inject mockTextAd fixture in each test and mock the response where it is needed
   mockTextAd: mockTextAd.default,
   createSocket: socketServer.createSocket,
-  injectMetaMaskProvider: injectMetaMaskProvider.default,
 });
 
 test.beforeEach(async({ page, mockTextAd }) => {

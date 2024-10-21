@@ -6,7 +6,6 @@ import type { TokenInfo } from 'types/api/token';
 
 import config from 'configs/app';
 import { getTokenTypeName } from 'lib/token/tokenTypes';
-import AddressAddToWallet from 'ui/shared/address/AddressAddToWallet';
 import Tag from 'ui/shared/chakra/Tag';
 import AddressEntity from 'ui/shared/entities/address/AddressEntity';
 import TokenEntity from 'ui/shared/entities/token/TokenEntity';
@@ -75,7 +74,6 @@ const TokensTableItem = ({
           truncation="constant"
           noIcon
         />
-        <AddressAddToWallet token={ token } isLoading={ isLoading }/>
       </Flex>
       { exchangeRate && (
         <HStack spacing={ 3 }>

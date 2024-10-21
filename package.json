@@ -64,7 +64,7 @@
     "@tanstack/react-query-devtools": "5.55.4",
     "@types/papaparse": "^5.3.5",
     "@types/react-scroll": "^1.8.4",
-    "@web3modal/wagmi": "5.1.7",
+
     "airtable": "^0.12.2",
     "bignumber.js": "^9.1.0",
     "blo": "^1.1.1",
@@ -110,7 +110,6 @@
     "use-font-face-observer": "^1.2.1",
     "valibot": "0.38.0",
     "viem": "2.21.5",
-    "wagmi": "2.12.10",
     "xss": "^1.0.14"
   },
   "devDependencies": {

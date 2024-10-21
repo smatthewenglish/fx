@@ -1,11 +1,8 @@
 import { HStack, Box } from '@chakra-ui/react';
 import React from 'react';
 
-import config from 'configs/app';
 import NetworkLogo from 'ui/snippets/networkMenu/NetworkLogo';
-import ProfileMenuDesktop from 'ui/snippets/profileMenu/ProfileMenuDesktop';
 import SearchBar from 'ui/snippets/searchBar/SearchBar';
-import WalletMenuDesktop from 'ui/snippets/walletMenu/WalletMenuDesktop';
 
 import Burger from './Burger';
 
@@ -36,12 +33,6 @@ const HeaderDesktop = ({ renderSearchBar, isMarketplaceAppPage }: Props) => {
       <Box width="100%">
         { searchBar }
       </Box>
-      { config.UI.navigation.layout === 'vertical' && (
-        <Box display="flex">
-          { config.features.account.isEnabled && <ProfileMenuDesktop/> }
-          { config.features.blockchainInteraction.isEnabled && <WalletMenuDesktop/> }
-        </Box>
-      ) }
     </HStack>
   );
 };

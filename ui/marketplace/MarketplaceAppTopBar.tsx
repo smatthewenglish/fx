@@ -5,15 +5,12 @@ import type { MarketplaceAppOverview, MarketplaceAppSecurityReport, ContractList
 
 import { route } from 'nextjs-routes';
 
-import config from 'configs/app';
 import { useAppContext } from 'lib/contexts/app';
 import useIsMobile from 'lib/hooks/useIsMobile';
 import IconSvg from 'ui/shared/IconSvg';
 import LinkExternal from 'ui/shared/links/LinkExternal';
 import LinkInternal from 'ui/shared/links/LinkInternal';
 import NetworkLogo from 'ui/snippets/networkMenu/NetworkLogo';
-import ProfileMenuDesktop from 'ui/snippets/profileMenu/ProfileMenuDesktop';
-import WalletMenuDesktop from 'ui/snippets/walletMenu/WalletMenuDesktop';
 
 import AppSecurityReport from './AppSecurityReport';
 import ContractListModal from './ContractListModal';
@@ -97,12 +94,6 @@ const MarketplaceAppTopBar = ({ appId, data, isLoading, securityReport }: Props)
           canRate={ canRate }
           source="App page"
         />
-        { !isMobile && (
-          <Flex flex="1" justifyContent="flex-end">
-            { config.features.account.isEnabled && <ProfileMenuDesktop boxSize="32px" fallbackIconSize={ 16 }/> }
-            { config.features.blockchainInteraction.isEnabled && <WalletMenuDesktop size="sm"/> }
-          </Flex>
-        ) }
       </Flex>
       { contractListType && (
         <ContractListModal
