@@ -1,19 +1,7 @@
-// this component trims hash string like 0x123...4567 (always 4 chars after dots)
-// or shows full hash string, if fits
-
-// i can't do this with pure css. if you can, feel free to replace it
-
-// if i use <span text-overflow=ellipsis>some chars</span><span>last 4 chars</span>
-// i have an unremovable gap between dots and second span
-
-// so i did it with js
-
 import type { As } from '@chakra-ui/react';
 import { Tooltip, chakra } from '@chakra-ui/react';
 import _debounce from 'lodash/debounce';
-import React, { useCallback, useEffect, useRef } from 'react';
-import type { FontFace } from 'use-font-face-observer';
-import useFontFaceObserver from 'use-font-face-observer';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 import { BODY_TYPEFACE, HEADING_TYPEFACE } from 'theme/foundations/typography';
 
@@ -28,14 +16,16 @@ interface Props {
   as?: As;
 }
 
-const HashStringShortenDynamic = ({ hash, fontWeight = '400', isTooltipDisabled, tailLength = TAIL_LENGTH, as = 'span' }: Props) => {
+const HashStringShortenDynamic = ({
+  hash,
+  fontWeight = '400',
+  isTooltipDisabled,
+  tailLength = TAIL_LENGTH,
+  as = 'span',
+}: Props) => {
   const elementRef = useRef<HTMLSpanElement>(null);
-  const [ displayedString, setDisplayedString ] = React.useState(hash);
-
-  const isFontFaceLoaded = useFontFaceObserver([
-    { family: BODY_TYPEFACE, weight: String(fontWeight) as FontFace['weight'] },
-    { family: HEADING_TYPEFACE, weight: String(fontWeight) as FontFace['weight'] },
-  ]);
+  const [displayedString, setDisplayedString] = useState(hash);
+  const [isFontLoaded, setIsFontLoaded] = useState(false);
 
   const calculateString = useCallback(() => {
     const parent = elementRef?.current?.parentNode as HTMLElement;
@@ -71,14 +61,13 @@ const HashStringShortenDynamic = ({ hash, fontWeight = '400', isTooltipDisabled,
     }
 
     parent.removeChild(shadowEl);
-  }, [ hash, tailLength ]);
+  }, [hash, tailLength]);
 
-  // we want to do recalculation when isFontFaceLoaded flag is changed
-  // but we don't want to create more resize event listeners
-  // that's why there are separate useEffect hooks
   useEffect(() => {
-    calculateString();
-  }, [ calculateString, isFontFaceLoaded ]);
+    if (isFontLoaded) {
+      calculateString();
+    }
+  }, [calculateString, isFontLoaded]);
 
   useEffect(() => {
     const resizeHandler = _debounce(calculateString, 100);
@@ -88,14 +77,26 @@ const HashStringShortenDynamic = ({ hash, fontWeight = '400', isTooltipDisabled,
     return function cleanup() {
       resizeObserver.unobserve(document.body);
     };
-  }, [ calculateString ]);
+  }, [calculateString]);
 
-  const content = <chakra.span ref={ elementRef } as={ as }>{ displayedString }</chakra.span>;
+  // Font loading detection
+  useEffect(() => {
+    const onFontsLoaded = () => setIsFontLoaded(true);
+    document.fonts.ready.then(onFontsLoaded).catch(() => setIsFontLoaded(true)); // Fallback to true if font load fails
+  }, []);
+
+  const content = (
+    <chakra.span ref={elementRef} as={as}>
+      {displayedString}
+    </chakra.span>
+  );
   const isTruncated = hash.length !== displayedString.length;
 
   if (isTruncated) {
     return (
-      <Tooltip label={ hash } isDisabled={ isTooltipDisabled } maxW={{ base: 'calc(100vw - 8px)', lg: '400px' }}>{ content }</Tooltip>
+      <Tooltip label={hash} isDisabled={isTooltipDisabled} maxW={{ base: 'calc(100vw - 8px)', lg: '400px' }}>
+        {content}
+      </Tooltip>
     );
   }
 
