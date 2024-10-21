@@ -1,4 +1,4 @@
-import type { LinkProps, FlexProps } from '@chakra-ui/react';
+import type { LinkProps } from '@chakra-ui/react';
 import { Flex, Link } from '@chakra-ui/react';
 import type { LinkProps as NextLinkProps } from 'next/link';
 import NextLink from 'next/link';
@@ -17,7 +17,7 @@ const LinkInternal = ({ isLoading, variant, ...props }: Props, ref: LegacyRef<HT
   const styleProps = useLinkStyles({}, variant);
 
   if (isLoading) {
-    return <Flex alignItems="center" { ...props as FlexProps } { ...styleProps }>{ props.children }</Flex>;
+    return <Flex alignItems="center" { ...styleProps }>{ props.children }</Flex>;
   }
 
   if (!props.href) {

@@ -20,8 +20,6 @@ const TEMPLATE_MAP: Record<Route['pathname'], string> = {
   '/tokens': 'Tokens list - %network_name% explorer',
   '/token/[hash]': '%network_name% token details',
   '/token/[hash]/instance/[id]': '%network_name% NFT instance',
-  '/apps': '%network_name% DApps - Explore top apps',
-  '/apps/[id]': '%network_name% marketplace app',
   '/stats': '%network_name% stats - %network_name% network insights',
   '/stats/[id]': '%network_name% stats - %id% chart',
   '/api-docs': '%network_name% API docs - %network_name% developer tools',
@@ -32,7 +30,6 @@ const TEMPLATE_MAP: Record<Route['pathname'], string> = {
   '/account/api-key': '%network_name% - API keys',
   '/account/custom-abi': '%network_name% - custom ABI',
   '/account/tag-address': '%network_name% - private tags',
-  '/account/verified-addresses': '%network_name% - my verified addresses',
   '/public-tags/submit': '%network_name% - public tag requests',
   '/withdrawals': '%network_name% withdrawals - track on %network_name% explorer',
   '/visualize/sol2uml': '%network_name% Solidity UML diagram',
@@ -71,7 +68,6 @@ const TEMPLATE_MAP: Record<Route['pathname'], string> = {
 const TEMPLATE_MAP_ENHANCED: Partial<Record<Route['pathname'], string>> = {
   '/token/[hash]': '%network_name% %symbol% token details',
   '/token/[hash]/instance/[id]': '%network_name% token instance for %symbol%',
-  '/apps/[id]': '%network_name% - %app_name%',
   '/address/[hash]': '%network_name% address details for %domain_name%',
   '/stats/[id]': '%title% chart on %network_name%',
 };

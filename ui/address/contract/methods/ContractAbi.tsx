@@ -5,7 +5,6 @@ import React from 'react';
 import type { SmartContractMethod } from './types';
 
 import ContractAbiItem from './ContractAbiItem';
-import useFormSubmit from './useFormSubmit';
 import useScrollToMethod from './useScrollToMethod';
 
 interface Props {
@@ -19,8 +18,6 @@ const ContractAbi = ({ abi, addressHash, tab }: Props) => {
   const [ id, setId ] = React.useState(0);
 
   useScrollToMethod(abi, setExpandedSections);
-
-  const handleFormSubmit = useFormSubmit({ addressHash });
 
   const handleAccordionStateChange = React.useCallback((newValue: Array<number>) => {
     setExpandedSections(newValue);
@@ -62,7 +59,7 @@ const ContractAbi = ({ abi, addressHash, tab }: Props) => {
             index={ index }
             addressHash={ addressHash }
             tab={ tab }
-            onSubmit={ handleFormSubmit }
+            onSubmit={ undefined }
           />
         )) }
       </Accordion>

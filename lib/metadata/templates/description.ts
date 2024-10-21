@@ -1,8 +1,6 @@
-/* eslint-disable max-len */
 import type { Route } from 'nextjs-routes';
 
 // equal og:description
-// eslint-disable-next-line max-len
 const DEFAULT_TEMPLATE = 'Blockscout is the #1 open-source blockchain explorer available today. 100+ chains and counting rely on Blockscout data availability, APIs, and ecosystem tools to support their networks.';
 
 // FIXME all page descriptions will be updated later
@@ -24,8 +22,6 @@ const TEMPLATE_MAP: Record<Route['pathname'], string> = {
   '/tokens': DEFAULT_TEMPLATE,
   '/token/[hash]': '%hash%, balances and analytics on the %network_title%',
   '/token/[hash]/instance/[id]': '%hash%, balances and analytics on the %network_title%',
-  '/apps': DEFAULT_TEMPLATE,
-  '/apps/[id]': DEFAULT_TEMPLATE,
   '/stats': DEFAULT_TEMPLATE,
   '/stats/[id]': DEFAULT_TEMPLATE,
   '/api-docs': DEFAULT_TEMPLATE,
@@ -36,7 +32,6 @@ const TEMPLATE_MAP: Record<Route['pathname'], string> = {
   '/account/api-key': DEFAULT_TEMPLATE,
   '/account/custom-abi': DEFAULT_TEMPLATE,
   '/account/tag-address': DEFAULT_TEMPLATE,
-  '/account/verified-addresses': DEFAULT_TEMPLATE,
   '/public-tags/submit': 'Propose a new public tag for your address, contract or set of contracts for your dApp. Our team will review and approve your submission. Public tags are incredible tool which helps users identify contracts and addresses.',
   '/withdrawals': DEFAULT_TEMPLATE,
   '/visualize/sol2uml': DEFAULT_TEMPLATE,

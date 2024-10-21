@@ -9,7 +9,6 @@ import config from 'configs/app';
 import * as regexp from 'lib/regexp';
 import getQueryParamString from 'lib/router/getQueryParamString';
 import removeQueryParam from 'lib/router/removeQueryParam';
-import useMarketplaceApps from 'ui/marketplace/useMarketplaceApps';
 import SearchResultListItem from 'ui/searchResults/SearchResultListItem';
 import SearchResultsInput from 'ui/searchResults/SearchResultsInput';
 import SearchResultTableItem from 'ui/searchResults/SearchResultTableItem';
@@ -34,8 +33,6 @@ const SearchResultsPageContent = () => {
   const { query, redirectCheckQuery, searchTerm, debouncedSearchTerm, handleSearchTermChange } = useSearchQuery(withRedirectCheck);
   const { data, isError, isPlaceholderData, pagination } = query;
   const [ showContent, setShowContent ] = React.useState(!withRedirectCheck);
-
-  const marketplaceApps = useMarketplaceApps(debouncedSearchTerm);
 
   React.useEffect(() => {
     if (showContent) {
@@ -88,7 +85,7 @@ const SearchResultsPageContent = () => {
     event.preventDefault();
   }, [ ]);
 
-  const isLoading = marketplaceApps.isPlaceholderData || isPlaceholderData;
+  const isLoading = isPlaceholderData;
 
   const displayedItems: Array<SearchResultItem | SearchResultAppItem> = React.useMemo(() => {
     const apiData = (data?.items || []).filter((item) => {
@@ -119,12 +116,12 @@ const SearchResultsPageContent = () => {
       } : undefined;
 
     return [
-      ...(pagination.page === 1 && !isLoading ? marketplaceApps.displayedApps.map((item) => ({ type: 'app' as const, app: item })) : []),
+      ...([]),
       futureBlockItem,
       ...apiData,
     ].filter(Boolean);
 
-  }, [ data?.items, data?.next_page_params, isPlaceholderData, pagination.page, debouncedSearchTerm, marketplaceApps.displayedApps, isLoading ]);
+  }, [ data?.items, data?.next_page_params, isPlaceholderData, pagination.page, debouncedSearchTerm, [], isLoading ]);
 
   const content = (() => {
     if (isError) {
@@ -190,7 +187,7 @@ const SearchResultsPageContent = () => {
             <chakra.span fontWeight={ 700 }>
               { resultsCount }
             </chakra.span>
-            <span> matching result{ (((displayedItems.length || 0) + marketplaceApps.displayedApps.length) > 1) || pagination.page > 1 ? 's' : '' } for </span>
+            <span> matching result{ pagination.page > 1 ? 's' : '' } for </span>
             “<chakra.span fontWeight={ 700 }>{ debouncedSearchTerm }</chakra.span>”
           </Box>
           { resultsCount === 0 && regexp.BLOCK_HEIGHT.test(debouncedSearchTerm) &&

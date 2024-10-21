@@ -9,7 +9,6 @@ import type { SearchResultItem } from 'types/api/search';
 import type { ResourceError } from 'lib/api/resources';
 import useIsMobile from 'lib/hooks/useIsMobile';
 import * as regexp from 'lib/regexp';
-import useMarketplaceApps from 'ui/marketplace/useMarketplaceApps';
 import ContentLoader from 'ui/shared/ContentLoader';
 import type { ApiCategory, ItemsCategoriesMap } from 'ui/shared/search/utils';
 import { getItemCategory, searchCategories } from 'ui/shared/search/utils';
@@ -27,8 +26,6 @@ interface Props {
 
 const SearchBarSuggest = ({ query, searchTerm, onItemClick, containerId }: Props) => {
   const isMobile = useIsMobile();
-
-  const marketplaceApps = useMarketplaceApps(searchTerm);
 
   const categoriesRefs = React.useRef<Array<HTMLParagraphElement>>([]);
   const tabsRef = React.useRef<HTMLDivElement>(null);
@@ -67,7 +64,7 @@ const SearchBarSuggest = ({ query, searchTerm, onItemClick, containerId }: Props
   }, [ containerId, handleScroll ]);
 
   const itemsGroups = React.useMemo(() => {
-    if (!query.data && !marketplaceApps.displayedApps) {
+    if (!query.data) {
       return {};
     }
 
@@ -84,10 +81,6 @@ const SearchBarSuggest = ({ query, searchTerm, onItemClick, containerId }: Props
       }
     });
 
-    if (marketplaceApps.displayedApps.length) {
-      map.app = marketplaceApps.displayedApps;
-    }
-
     if (Object.keys(map).length > 0 && !map.block && regexp.BLOCK_HEIGHT.test(searchTerm)) {
       map['block'] = [ {
         type: 'block',
@@ -99,11 +92,7 @@ const SearchBarSuggest = ({ query, searchTerm, onItemClick, containerId }: Props
     }
 
     return map;
-  }, [ query.data, marketplaceApps.displayedApps, searchTerm ]);
-
-  React.useEffect(() => {
-    categoriesRefs.current = Array(Object.keys(itemsGroups).length).fill('').map((_, i) => categoriesRefs.current[i] || React.createRef());
-  }, [ itemsGroups ]);
+  }, [ query.data, {}, searchTerm ]);
 
   const scrollToCategory = React.useCallback((index: number) => () => {
     setTabIndex(index);
@@ -118,7 +107,7 @@ const SearchBarSuggest = ({ query, searchTerm, onItemClick, containerId }: Props
   const bgColor = useColorModeValue('white', 'gray.900');
 
   const content = (() => {
-    if (query.isPending || marketplaceApps.isPlaceholderData) {
+    if (query.isPending) {
       return <ContentLoader text="We are searching, please wait... " fontSize="sm"/>;
     }
 

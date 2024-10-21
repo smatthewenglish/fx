@@ -238,12 +238,6 @@ export default function useNavItems(): ReturnType {
         icon: 'token',
         isActive: pathname.startsWith('/token'),
       },
-      config.features.marketplace.isEnabled ? {
-        text: 'DApps',
-        nextRoute: { pathname: '/apps' as const },
-        icon: 'apps',
-        isActive: pathname.startsWith('/app'),
-      } : null,
       config.features.stats.isEnabled ? {
         text: 'Charts & stats',
         nextRoute: { pathname: '/stats' as const },
@@ -288,12 +282,6 @@ export default function useNavItems(): ReturnType {
         nextRoute: { pathname: '/account/custom-abi' as const },
         icon: 'ABI',
         isActive: pathname === '/account/custom-abi',
-      },
-      config.features.addressVerification.isEnabled && {
-        text: 'Verified addrs',
-        nextRoute: { pathname: '/account/verified-addresses' as const },
-        icon: 'verified',
-        isActive: pathname === '/account/verified-addresses',
       },
     ].filter(Boolean);
 

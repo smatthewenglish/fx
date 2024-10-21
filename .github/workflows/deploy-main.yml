@@ -9,9 +9,7 @@ on:
       - '.husky/**'
       - '.vscode/**'
       - 'docs/**'
-      - 'jest/**'
       - 'mocks/**'
-      - 'playwright/**'
       - 'stubs/**'
       - 'tools/**'
   workflow_dispatch:

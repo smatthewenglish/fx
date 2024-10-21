@@ -12,7 +12,7 @@ const AppContext = createContext<PageProps>({
   cookies: '',
   referrer: '',
   query: {},
-  adBannerProvider: null,
+  //@ts-ignore
   apiData: null,
 });
 

@@ -9,8 +9,6 @@ import { route } from 'nextjs-routes';
 import config from 'configs/app';
 import getCurrencyValue from 'lib/getCurrencyValue';
 import * as mixpanel from 'lib/mixpanel/index';
-import LinkExternal from 'ui/shared/links/LinkExternal';
-import LinkInternal from 'ui/shared/links/LinkInternal';
 import TextSeparator from 'ui/shared/TextSeparator';
 
 import { getTokensTotalInfo } from '../utils/tokenUtils';
@@ -72,27 +70,11 @@ const AddressNetWorth = ({ addressData, isLoading, addressHash }: Props) => {
       const portfolioUrl = new URL(portfolioUrlString);
       portfolioUrl.searchParams.append('utm_source', 'blockscout');
       portfolioUrl.searchParams.append('utm_medium', 'address');
-      const dappId = multichainFeature.dappId;
       multichainItem = (
         <>
           <TextSeparator mx={ 0 } color="gray.500"/>
           <Flex alignItems="center" gap={ 2 }>
             <Text>Multichain</Text>
-            { typeof dappId === 'string' ? (
-              <LinkInternal
-                href={ route({ pathname: '/apps/[id]', query: { id: dappId, url: portfolioUrl.toString() } }) }
-                { ...linkProps }
-              >
-                { buttonContent }
-              </LinkInternal>
-            ) : (
-              <LinkExternal
-                href={ portfolioUrl.toString() }
-                { ...linkProps }
-              >
-                { buttonContent }
-              </LinkExternal>
-            ) }
           </Flex>
         </>
       );

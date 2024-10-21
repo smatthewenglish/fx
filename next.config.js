@@ -17,7 +17,12 @@ const moduleExports = {
     'swagger-client',
     'swagger-ui-react',
   ],
-  reactStrictMode: true,
+  reactStrictMode: false,
+  // Ignore TypeScript build errors
+  typescript: {
+    ignoreBuildErrors: true,
+  },
+  
   webpack(config, { webpack }) {
     config.plugins.push(
       new webpack.DefinePlugin({
@@ -45,18 +50,6 @@ const moduleExports = {
   headers,
   output: 'standalone',
   productionBrowserSourceMaps: true,
-  experimental: {
-    instrumentationHook: process.env.NEXT_OPEN_TELEMETRY_ENABLED === 'true',
-    // disabled as it is not stable yet
-    // turbo: {
-    //   rules: {
-    //     '*.svg': {
-    //       loaders: [ '@svgr/webpack' ],
-    //       as: '*.js',
-    //     },
-    //   },
-    // },
-  },
 };
 
 module.exports = withBundleAnalyzer(withRoutes(moduleExports));

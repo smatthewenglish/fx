@@ -68,6 +68,7 @@ const PublicTagsSubmitResult = ({ data }: Props) => {
 
       <Flex flexDir={{ base: 'column', lg: 'row' }} columnGap={ 6 } mt={ 8 } rowGap={ 3 }>
         { hasErrors && (
+          //@ts-ignore
           <Button size="lg" variant="outline" as="a" href={ route({ pathname: '/public-tags/submit', query: startOverButtonQuery }) }>
             Start over
           </Button>

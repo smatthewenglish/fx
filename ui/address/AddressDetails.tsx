@@ -92,7 +92,7 @@ const AddressDetails = ({ addressQuery, scrollRef }: Props) => {
       >
         <AddressNameInfo data={ data } isLoading={ addressQuery.isPlaceholderData }/>
 
-        { data.is_contract && data.creation_tx_hash && data.creator_address_hash && (
+        { data.is_contract && data.creation_tx_hash (
           <>
             <DetailsInfoItem.Label
               hint="Transaction and address of creation"
@@ -102,7 +102,7 @@ const AddressDetails = ({ addressQuery, scrollRef }: Props) => {
             </DetailsInfoItem.Label>
             <DetailsInfoItem.Value>
               <AddressEntity
-                address={{ hash: data.creator_address_hash }}
+                address={{ hash: addressHash }}
                 truncation="constant"
                 noIcon
               />

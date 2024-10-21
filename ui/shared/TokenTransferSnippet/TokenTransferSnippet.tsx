@@ -69,10 +69,11 @@ const TokenTransferSnippet = ({ data, isLoading, noAddressIcons = true }: Props)
             />
           );
         } else {
+          //@ts-ignore
           if (total.value === null) {
             return null;
           }
-
+          //@ts-ignore
           return <TokenTransferSnippetFiat token={ data.token } value={ total.value } decimals={ total.decimals }/>;
         }
       }

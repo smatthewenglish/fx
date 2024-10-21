@@ -7,7 +7,6 @@ import { scroller } from 'react-scroll';
 
 import type { TokenInfo } from 'types/api/token';
 
-import config from 'configs/app';
 import type { ResourceError } from 'lib/api/resources';
 import useApiQuery from 'lib/api/useApiQuery';
 import throwOnResourceLoadError from 'lib/errors/throwOnResourceLoadError';
@@ -15,12 +14,8 @@ import getCurrencyValue from 'lib/getCurrencyValue';
 import useIsMounted from 'lib/hooks/useIsMounted';
 import { TOKEN_COUNTERS } from 'stubs/token';
 import type { TokenTabs } from 'ui/pages/Token';
-import AppActionButton from 'ui/shared/AppActionButton/AppActionButton';
-import useAppActionData from 'ui/shared/AppActionButton/useAppActionData';
 import * as DetailsInfoItem from 'ui/shared/DetailsInfoItem';
 import TruncatedValue from 'ui/shared/TruncatedValue';
-
-import TokenNftMarketplaces from './TokenNftMarketplaces';
 
 interface Props {
   tokenQuery: UseQueryResult<TokenInfo, ResourceError<unknown>>;
@@ -36,8 +31,6 @@ const TokenDetails = ({ tokenQuery }: Props) => {
     pathParams: { hash },
     queryOptions: { enabled: Boolean(router.query.hash), placeholderData: TOKEN_COUNTERS },
   });
-
-  const appActionData = useAppActionData(hash);
 
   const changeUrlAndScroll = useCallback((tab: TokenTabs) => () => {
     router.push(
@@ -187,30 +180,6 @@ const TokenDetails = ({ tokenQuery }: Props) => {
             <Skeleton isLoaded={ !tokenQuery.isPlaceholderData } minW={ 6 }>
               { decimals }
             </Skeleton>
-          </DetailsInfoItem.Value>
-        </>
-      ) }
-
-      { type !== 'ERC-20' && (
-        <TokenNftMarketplaces
-          hash={ hash }
-          isLoading={ tokenQuery.isPlaceholderData }
-          appActionData={ appActionData }
-          source="NFT collection"
-        />
-      ) }
-
-      { (type !== 'ERC-20' && config.UI.views.nft.marketplaces.length === 0 && appActionData) && (
-        <>
-          <DetailsInfoItem.Label
-            hint="Link to the dapp"
-          >
-            Dapp
-          </DetailsInfoItem.Label>
-          <DetailsInfoItem.Value
-            py="1px"
-          >
-            <AppActionButton data={ appActionData } height="30px" source="NFT collection"/>
           </DetailsInfoItem.Value>
         </>
       ) }

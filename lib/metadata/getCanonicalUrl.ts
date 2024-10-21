@@ -14,7 +14,6 @@ const CANONICAL_ROUTES: Array<Route['pathname']> = [
   '/api-docs',
   '/graphiql',
   '/gas-tracker',
-  '/apps',
 ];
 
 export default function getCanonicalUrl(pathname: Route['pathname']) {

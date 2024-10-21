@@ -15,7 +15,6 @@ declare module "nextjs-routes" {
     | StaticRoute<"/account/api-key">
     | StaticRoute<"/account/custom-abi">
     | StaticRoute<"/account/tag-address">
-    | StaticRoute<"/account/verified-addresses">
     | StaticRoute<"/account/watchlist">
     | StaticRoute<"/accounts">
     | DynamicRoute<"/accounts/label/[slug]", { "slug": string }>
@@ -31,8 +30,6 @@ declare module "nextjs-routes" {
     | StaticRoute<"/api/proxy">
     | StaticRoute<"/api/sprite">
     | StaticRoute<"/api-docs">
-    | DynamicRoute<"/apps/[id]", { "id": string }>
-    | StaticRoute<"/apps">
     | StaticRoute<"/auth/auth0">
     | StaticRoute<"/auth/profile">
     | StaticRoute<"/auth/unverified-email">

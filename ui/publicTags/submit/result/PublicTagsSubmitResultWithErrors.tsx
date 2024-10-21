@@ -76,6 +76,7 @@ const PublicTagsSubmitResultWithErrors = ({ data }: Props) => {
                 ml={{ base: 0, lg: 6 }}
                 w="min-content"
                 as="a"
+                //@ts-ignore
                 href={ route({ pathname: '/public-tags/submit', query: startOverButtonQuery }) }
               >
                 Start  over

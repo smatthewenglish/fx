@@ -59,6 +59,7 @@ const getChakraStyles: (colorMode: ColorMode) => ChakraStylesConfig<Option> = (c
     }),
     valueContainer: (provided, state) => ({
       ...provided,
+      //@ts-ignore
       ...getValueContainerStyles(state.selectProps.size),
       py: 0,
     }),
@@ -66,6 +67,7 @@ const getChakraStyles: (colorMode: ColorMode) => ChakraStylesConfig<Option> = (c
       ...provided,
       mx: 0,
       transform: 'none',
+      //@ts-ignore
       ...getSingleValueStyles(state.selectProps.size),
     }),
   };

@@ -28,8 +28,6 @@ const TagGroupSelect = <T extends string>({ items, value, isMulti, onChange, tag
         newValue = [ ...value, itemValue ];
       }
       onChange(newValue);
-    } else {
-      onChange(itemValue);
     }
   }, [ isMulti, onChange, value ]);
 

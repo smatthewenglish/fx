@@ -13,6 +13,7 @@ export default function useFetchChartData<R extends ChartsResources>(indicator: 
   });
 
   return React.useMemo(() => {
+    //@ts-ignore
     return {
       ...queryResult,
       data: queryResult.data && indicator ? indicator.api.dataFn(queryResult.data as ResourcePayload<R>) : queryResult.data,

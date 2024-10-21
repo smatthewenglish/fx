@@ -36,26 +36,6 @@ const TokenInfoMenuItem = ({ className, hash, onBeforeClick, type }: ItemProps) 
     },
   });
 
-  const handleAddAddressClick = React.useCallback(() => {
-    if (!onBeforeClick({ pathname: '/account/verified-addresses' })) {
-      return;
-    }
-
-    modal.onOpen();
-  }, [ modal, onBeforeClick ]);
-
-  const handleAddApplicationClick = React.useCallback(async() => {
-    router.push({ pathname: '/account/verified-addresses', query: { address: hash } });
-  }, [ hash, router ]);
-
-  const handleVerifiedAddressSubmit = React.useCallback(async() => {
-    await verifiedAddressesQuery.refetch();
-  }, [ verifiedAddressesQuery ]);
-
-  const handleShowMyAddressesClick = React.useCallback(async() => {
-    router.push({ pathname: '/account/verified-addresses' });
-  }, [ router ]);
-
   const element = (() => {
     const icon = <IconSvg name="edit" boxSize={ 6 } p={ 1 }/>;
     const isVerifiedAddress = verifiedAddressesQuery.data?.verifiedAddresses
@@ -70,15 +50,13 @@ const TokenInfoMenuItem = ({ className, hash, onBeforeClick, type }: ItemProps) 
       return hasApplication || tokenInfoQuery.data?.tokenAddress ? 'Update token info' : 'Add token info';
     })();
 
-    const onClick = isVerifiedAddress ? handleAddApplicationClick : handleAddAddressClick;
-
     switch (type) {
       case 'button': {
-        return <ButtonItem label={ label } icon={ icon } onClick={ onClick } className={ className }/>;
+        return <ButtonItem label={ label } icon={ icon } onClick={ undefined } className={ className }/>;
       }
       case 'menu_item': {
         return (
-          <MenuItem className={ className } onClick={ onClick }>
+          <MenuItem className={ className } onClick={ undefined }>
             { icon }
             <chakra.span ml={ 2 }>{ label }</chakra.span>
           </MenuItem>

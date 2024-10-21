@@ -1,4 +1,3 @@
-import type { WalletType } from 'types/client/wallets';
 import type { ColorThemeId } from 'types/settings';
 
 export enum EventTypes {
@@ -43,16 +42,6 @@ Type extends EventTypes.LOCAL_SEARCH ? {
   'Search query': string;
   'Source': 'Marketplace';
 } :
-Type extends EventTypes.ADD_TO_WALLET ? (
-  {
-    'Wallet': WalletType;
-    'Target': 'network';
-  } | {
-    'Wallet': WalletType;
-    'Target': 'token';
-    'Token': string;
-  }
-) :
 Type extends EventTypes.ACCOUNT_ACCESS ? {
   'Action': 'Auth0 init' | 'Verification email resent' | 'Logged out';
 } :

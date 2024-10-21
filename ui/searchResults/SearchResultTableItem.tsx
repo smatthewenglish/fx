@@ -197,27 +197,6 @@ const SearchResultTableItem = ({ data, searchTerm, isLoading }: Props) => {
                   src={ colorMode === 'dark' && data.app.logoDarkMode ? data.app.logoDarkMode : data.app.logo }
                   alt={ `${ data.app.title } app icon` }
                 />
-                { data.app.external ? (
-                  <LinkExternal
-                    href={ data.app.url }
-                    fontWeight={ 700 }
-                    wordBreak="break-all"
-                    isLoading={ isLoading }
-                    onClick={ handleLinkClick }
-                  >
-                    { title }
-                  </LinkExternal>
-                ) : (
-                  <LinkInternal
-                    href={ route({ pathname: '/apps/[id]', query: { id: data.app.id } }) }
-                    fontWeight={ 700 }
-                    wordBreak="break-all"
-                    isLoading={ isLoading }
-                    onClick={ handleLinkClick }
-                  >
-                    { title }
-                  </LinkInternal>
-                ) }
               </Flex>
             </Td>
             <Td fontSize="sm" verticalAlign="middle" colSpan={ 2 }>

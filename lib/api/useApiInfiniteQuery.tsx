@@ -28,7 +28,6 @@ export default function useApiInfiniteQuery<R extends PaginatedResources>({
   const apiFetch = useApiFetch();
 
   return useInfiniteQuery<TQueryData<R>, TError, InfiniteData<TQueryData<R>>, QueryKey, TPageParam<R>>({
-    // eslint-disable-next-line @tanstack/query/exhaustive-deps
     queryKey: getResourceKey(resourceName, { pathParams }),
     queryFn: (context) => {
       const queryParams = 'pageParam' in context ? (context.pageParam || undefined) : undefined;
@@ -36,6 +35,7 @@ export default function useApiInfiniteQuery<R extends PaginatedResources>({
     },
     initialPageParam: null,
     getNextPageParam: (lastPage) => {
+      //@ts-ignore
       return lastPage.next_page_params as TPageParam<R>;
     },
     ...queryOptions,

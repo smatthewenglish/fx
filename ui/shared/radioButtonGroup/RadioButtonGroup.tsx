@@ -72,7 +72,6 @@ const RadioButton = (props: RadioButtonProps) => {
         { ...checkbox }
       >
         { props.title }
-        { props.contentAfter }
       </Flex>
     </Button>
   );

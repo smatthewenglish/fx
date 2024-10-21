@@ -16,7 +16,6 @@ import ContractMethodFieldInput from './ContractMethodFieldInput';
 import ContractMethodFieldInputArray from './ContractMethodFieldInputArray';
 import ContractMethodFieldInputTuple from './ContractMethodFieldInputTuple';
 import ContractMethodResultPublicClient from './ContractMethodResultPublicClient';
-import ContractMethodResultWalletClient from './ContractMethodResultWalletClient';
 import { getFieldLabel, matchArray, transformFormDataToMethodArgs } from './utils';
 import type { ContractMethodFormFields } from './utils';
 
@@ -228,12 +227,6 @@ const ContractMethodForm = ({ data, attempt, onSubmit, onReset, isOpen }: Props)
           ) }
         </chakra.form>
       </FormProvider>
-      { result && result.source === 'wallet_client' && (
-        <ContractMethodResultWalletClient
-          data={ result.data }
-          onSettle={ handleResultSettle }
-        />
-      ) }
       { 'outputs' in data && data.outputs.length > 0 && (
         <ContractMethodResultPublicClient
           data={ result && result.source === 'public_client' ? result.data : undefined }
