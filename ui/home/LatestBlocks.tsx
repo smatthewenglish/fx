@@ -22,24 +22,55 @@ import LatestBlocksItem from './LatestBlocksItem';
 
 const LatestBlocks = () => {
   const isMobile = useIsMobile();
-  // const blocksMaxCount = isMobile ? 2 : 3;
   let blocksMaxCount: number;
   if (config.features.rollup.isEnabled || config.UI.views.block.hiddenFields?.total_reward) {
     blocksMaxCount = isMobile ? 4 : 5;
   } else {
     blocksMaxCount = isMobile ? 2 : 3;
   }
+
+  // Define the API endpoints (assuming they are set somewhere in your config or routing)
+  const blocksApiEndpoint = '/api/homepage_blocks'; // This should be the actual endpoint used by the app
+  const statsApiEndpoint = '/api/stats'; // Similarly, this is the endpoint for stats
+
+  // Logging API call and response for homepage_blocks
   const { data, isPlaceholderData, isError } = useApiQuery('homepage_blocks', {
     queryOptions: {
       placeholderData: Array(blocksMaxCount).fill(BLOCK),
+      onSuccess: (responseData) => {
+        console.log('API Call Success - Latest Blocks:', responseData);
+        console.log('API Endpoint Hit - Latest Blocks:', blocksApiEndpoint);
+      },
+      onError: (error) => {
+        console.error('API Call Error - Latest Blocks:', error);
+        console.log('API Endpoint Hit - Latest Blocks:', blocksApiEndpoint);
+      },
+      onSettled: (data, error) => {
+        console.log('API Call Settled - Latest Blocks:', { data, error });
+        console.log('API Endpoint Hit - Latest Blocks:', blocksApiEndpoint);
+      }
     },
   });
 
   const queryClient = useQueryClient();
+
+  // Logging API call and response for stats
   const statsQueryResult = useApiQuery('stats', {
     queryOptions: {
       refetchOnMount: false,
       placeholderData: HOMEPAGE_STATS,
+      onSuccess: (responseData) => {
+        console.log('API Call Success - Stats:', responseData);
+        console.log('API Endpoint Hit - Stats:', statsApiEndpoint);
+      },
+      onError: (error) => {
+        console.error('API Call Error - Stats:', error);
+        console.log('API Endpoint Hit - Stats:', statsApiEndpoint);
+      },
+      onSettled: (data, error) => {
+        console.log('API Call Settled - Stats:', { data, error });
+        console.log('API Endpoint Hit - Stats:', statsApiEndpoint);
+      }
     },
   });
 
@@ -60,6 +91,7 @@ const LatestBlocks = () => {
     topic: 'blocks:new_block',
     isDisabled: isPlaceholderData || isError,
   });
+  
   useSocketMessage({
     channel,
     event: 'new_block',
