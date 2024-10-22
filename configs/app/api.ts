@@ -2,9 +2,9 @@ import stripTrailingSlash from 'lib/stripTrailingSlash';
 
 import { getEnvValue } from './utils';
 
-const apiHost = getEnvValue('NEXT_PUBLIC_API_HOST');
-const apiSchema = getEnvValue('NEXT_PUBLIC_API_PROTOCOL') || 'https';
-const apiPort = getEnvValue('NEXT_PUBLIC_API_PORT');
+const apiHost = 'localhost'; //getEnvValue('NEXT_PUBLIC_API_HOST');
+const apiSchema = 'http'; //getEnvValue('NEXT_PUBLIC_API_PROTOCOL') || 'https';
+const apiPort = 4000; //getEnvValue('NEXT_PUBLIC_API_PORT');
 const apiEndpoint = [
   apiSchema || 'https',
   '://',
@@ -26,7 +26,7 @@ const api = Object.freeze({
   port: apiPort,
   endpoint: apiEndpoint,
   socket: socketEndpoint,
-  basePath: stripTrailingSlash(getEnvValue('NEXT_PUBLIC_API_BASE_PATH') || ''),
+  basePath: '' //stripTrailingSlash(getEnvValue('NEXT_PUBLIC_API_BASE_PATH') || ''),
 });
 
 export default api;
